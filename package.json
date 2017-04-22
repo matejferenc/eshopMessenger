@@ -1,7 +1,14 @@
 {
   "name": "messenger",
   "version": "1.0.0",
-  "description": "Messenger for e-shop",
+  "description": "Facebook messenger for e-shop",
+  "keywords": [
+    "facebook",
+    "messenger",
+    "fb",
+    "github"
+  ],
+  "homepage": "https://github.com/matejferenc/eshopMessenger.git",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -13,7 +20,6 @@
     "url": "https://github.com/matejferenc/eshopMessenger.git"
   },
   "author": "Matej Ferenc",
-  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
     "config": "^1.20.4",
@@ -23,5 +29,6 @@
   },
   "engines": {
     "node": "~4.1.2"
-  }
+  },
+  "private": true
 }
