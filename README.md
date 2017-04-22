@@ -8,4 +8,6 @@
     3. Build Triggers = Build when a change is pushed to GitHub
     4. Build - Execute Shell = sudo /opt/deploy/eshopMessenger/commands/deploy.sh
 4. In Github set the Webhook
-    1. Settings -> Webhooks -> http://modelzuzana.com:8381/github-webhook/
+    1. Settings
+        1. Webhooks -> http://modelzuzana.com:8381/github-webhook/
+        2. Integration & services -> Jenkins (GitHub plugin)
