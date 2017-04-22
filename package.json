@@ -1,7 +1,7 @@
 {
   "name": "messenger",
   "version": "1.0.0",
-  "description": "Get started example for Messenger Platform",
+  "description": "Messenger for e-shop",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/matejferenc/messenger.git"
+    "url": "https://github.com/matejferenc/eshopMessenger.git"
   },
   "author": "Matej Ferenc",
   "license": "ISC",
