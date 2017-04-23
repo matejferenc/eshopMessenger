@@ -10,6 +10,8 @@ const
   https = require('https'),
   request = require('request'),
   fs = require('fs');
+  console-stamp = require('console-stamp')(console, '[HH:MM:ss.l]');
+
 
 
 var app = express();
@@ -135,6 +137,7 @@ app.get('/confirm', function(req, res) {
   var userRef = req.query.userRef;
   var orderId = req.query.orderId;
   sendTextMessageToUserRef(userRef, "Dobrý den, potvrzujeme přijetí vaši objednávky č." + orderId);
+  res.sendStatus(200);
 });
 
 

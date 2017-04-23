@@ -69,6 +69,11 @@
 
 <h1>Facebook Messenger Checkbox Plugin Demo</h1>
 
+<h2>Objednávkový formulář</h2>
+<p>Bude obsahovat data relevantní k objednávce a messenger checkbox:</p>
+
+<h3>Objednávka č. <%= orderId %></h3>
+
 <div class="fb-messenger-checkbox"
      origin="https://goodreservation.com:6443"
      page_id="1889282338015127"
@@ -78,11 +83,12 @@
      allow_login="true"
      size="large"></div>
 
-<input type="button" onclick="confirmOrder()" value="User Confirms Order"/>
+<input type="button" onclick="confirmOrder()" value="Potvrdit objednávku"/>
 
-<input type="text" id="orderId">
+<h2>Zpracování objednávky v aplikaci</h2>
+<p>Až systém zpracuje objednávku, odešle zprávu s potvrzením objednávky do Messenger systému</p>
 
-<input type="button" onclick="processOrder('<%= userRef %>', '<%= orderId %>')" value="E-shop Processes Order"/>
+<input type="button" onclick="processOrder('<%= userRef %>', '<%= orderId %>')" value="Zpracovat objednávku a potvrdit přes Messenger"/>
 
 
 </body>
