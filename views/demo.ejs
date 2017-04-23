@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Facebook Checkbox Plugin Demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -69,6 +73,7 @@
 
 <h1>Facebook Messenger Checkbox Plugin Demo</h1>
 
+<div class="container-fluid">
 <h2>Objednávkový formulář</h2>
 <p>Bude obsahovat data relevantní k objednávce a messenger checkbox:</p>
 
@@ -84,12 +89,14 @@
      size="large"></div>
 
 <input type="button" onclick="confirmOrder()" value="Potvrdit objednávku"/>
+</div>
 
+<div class="container-fluid">
 <h2>Zpracování objednávky v aplikaci</h2>
 <p>Až systém zpracuje objednávku, odešle zprávu s potvrzením objednávky do Messenger systému</p>
 
 <input type="button" onclick="processOrder('<%= userRef %>', '<%= orderId %>')" value="Zpracovat objednávku a potvrdit přes Messenger"/>
-
+</div>
 
 </body>
 

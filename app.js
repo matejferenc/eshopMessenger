@@ -63,7 +63,6 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
 /*
  * Use your own validation token. Check that the token used in the Webhook 
  * setup is the same token used here.
- *
  */
 app.get('/webhook', function(req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
@@ -240,9 +239,7 @@ function receivedAuthentication(event) {
   // plugin.
   var passThroughParam = event.optin.ref;
 
-  console.log("Received authentication for user %s and page %d with pass " +
-    "through param '%s' at %d", userRef, recipientID, passThroughParam,
-    timeOfAuth);
+  console.log("Received authentication for user %s and page %d with pass through param '%s' at %d", userRef, recipientID, passThroughParam, timeOfAuth);
 
   // When an authentication is received, we'll send a message back to the sender
   // to let them know it was successful.
@@ -254,8 +251,7 @@ function receivedAuthentication(event) {
  *
  */
 function sendTextMessageToUserRef(userRef, messageText) {
-  console.log("sending message to userRef: " + userRef);
-  console.log("message text: " + messageText);
+  console.log("Sending message to userRef: " + userRef + ". " + messageText);
   var messageData = {
     recipient: {
       user_ref: userRef
@@ -264,7 +260,6 @@ function sendTextMessageToUserRef(userRef, messageText) {
       text: messageText
     }
   };
-
   callSendAPI(messageData);
 }
 
