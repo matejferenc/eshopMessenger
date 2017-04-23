@@ -50,12 +50,26 @@
     });
   };
 
+  function confirmOrder(userRef, orderId) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            messengerReceivedOrderConfirmation(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", "https://goodreservation:6443/confirm?userRef=" + userRef + "&orderId=" + orderId, true); // true for asynchronous
+    xmlHttp.send(null);
+  };
+
+  function messengerReceivedOrderConfirmation(responseText) {
+    console.log("Messenger received order confirmation: " + responseText);
+  }
+
+
 </script>
 
 <h1>Facebook Messenger Checkbox Plugin Demo</h1>
 
 <div class="fb-messenger-checkbox"
-
      origin="https://goodreservation.com:6443"
      page_id="1889282338015127"
      messenger_app_id="826661794148248"
@@ -64,7 +78,12 @@
      allow_login="true"
      size="large"></div>
 
-<input type="button" onclick="confirmOrder()" value="Confirm Order"/>
+<input type="button" onclick="confirmOrder(<%= userRef %>, <%= orderId %>)" value="User Confirms Order"/>
+
+<input type="text" id="orderId">
+
+<input type="button" onclick="processOrder()" value="E-shop Processes Order"/>
+
 
 </body>
 

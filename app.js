@@ -111,39 +111,31 @@ app.post('/webhook', function (req, res) {
   }
 });
 
-/*
- * This path is used for account linking. The account linking call-to-action
- * (sendAccountLinking) is pointed to this URL. 
- * 
- */
-app.get('/authorize', function(req, res) {
-  var accountLinkingToken = req.query.account_linking_token;
-  var redirectURI = req.query.redirect_uri;
-
-  // Authorization Code should be generated per user by the developer. This will 
-  // be passed to the Account Linking callback.
-  var authCode = "1234567890";
-
-  // Redirect users to this URI on successful login
-  var redirectURISuccess = redirectURI + "&authorization_code=" + authCode;
-
-  res.render('authorize', {
-    accountLinkingToken: accountLinkingToken,
-    redirectURI: redirectURI,
-    redirectURISuccess: redirectURISuccess
-  });
-});
 
 /*
  * Homepage will show Demo of Facebook messenger Checkbox plugin
  */
 app.get('/', function(req, res) {
   // userRef has to be unique for every request. If not unique, Facebook Checkbox plugin will not work properly
-  var userRef = Math.random().toString(36).substr(2, 5);
+  var userRef = Math.random().toString(36).substr(2, 10);
+  var orderId = Math.floor(Math.random() * (2000000000 - 1000000000 + 1) + 1000000000);
 
   res.render('demo', {
-    userRef: userRef
+    userRef: userRef,
+    orderId: orderId
   });
+});
+
+
+/*
+ * Endpoint for receiving order confirmation
+ */
+app.get('/confirm', function(req, res) {
+  console.log("Received GET to /confirm:");
+  console.log(JSON.stringify(req));
+  var userRef = req.query.userRef;
+  var orderId = req.query.orderId;
+  sendTextMessageToUserRef(userRef, "Dobrý den, potvrzujeme přijetí vaši objednávky č." + orderId);
 });
 
 
@@ -244,7 +236,7 @@ function receivedAuthentication(event) {
 
   // When an authentication is received, we'll send a message back to the sender
   // to let them know it was successful.
-  sendTextMessageToUserRef(userRef, "Authentication successful");
+//  sendTextMessageToUserRef(userRef, "Authentication successful");
 }
 
 /*
