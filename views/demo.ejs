@@ -52,20 +52,23 @@
       'ref': 'PASS_THROUGH_PARAM 1',
       'user_ref': '<%= userRef %>'
     });
-    $("#confirmOrderMessage").html("Objednávka byla úspěšně odeslána");
-    $("#confirmOrderButton").prop('disabled', true);
+    $('#confirmOrderButton').prop('value', "Objednávka byla úspěšně odeslána");
+    $('#confirmOrderButton').prop('disabled', true);
+    $('#confirmOrderButton').removeClass('btn-primary').addClass('btn-success');
   };
 
   function processOrder(userRef, orderId) {
     $.ajax({
-      url: "/confirm",
-      type: "get",
+      url: '/confirm',
+      type: 'get',
       data: {
         userRef: userRef,
         orderId: orderId
       },
       success: function(response) {
         console.log("Messenger received order confirmation: " + response);
+        $('#processOrderButton').prop('value', "Potvrzení objednávky bylo odesláno přes Messenger");
+        $('#processOrderButton').removeClass('btn-primary').addClass('btn-success');
       },
       error: function(xhr) {
         console.log("Error while sending GET /confirm");
@@ -93,16 +96,15 @@
      size="large"></div>
 
 <br/>
-<input type="button" id="confirmOrderButton" class="btn btn-default" onclick="confirmOrder()" value="Potvrdit objednávku"/>
-<p id="confirmOrderMessage"></p>
+<input type='button' id='confirmOrderButton' class='btn btn-primary' onclick='confirmOrder()' value='Potvrdit objednávku'/>
 <br/>
 </div>
 
-<div class="container-fluid panel panel-default">
+<div class='container-fluid panel panel-default'>
 <h2>Zpracování objednávky v aplikaci</h2>
 <p>Až systém zpracuje objednávku, odešle zprávu s potvrzením objednávky do Messenger systému</p>
 
-<input type="button" class="btn btn-default" onclick="processOrder('<%= userRef %>', '<%= orderId %>')" value="Zpracovat objednávku a potvrdit přes Messenger"/>
+<input type='button' id='processOrderButton' class='btn btn-primary' onclick="processOrder('<%= userRef %>', '<%= orderId %>')" value="Zpracovat objednávku a potvrdit přes Messenger"/>
 <br/>
 </div>
 
