@@ -141,9 +141,6 @@ app.get('/', function(req, res) {
   // userRef has to be unique for every request. If not unique, Facebook Checkbox plugin will not work properly
   var userRef = Math.random().toString(36).substr(2, 5);
 
-  // Redirect users to this URI on successful login
-  var redirectURISuccess = redirectURI + "&authorization_code=" + authCode;
-
   res.render('demo', {
     userRef: userRef
   });
