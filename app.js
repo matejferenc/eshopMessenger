@@ -10,7 +10,7 @@ const
   https = require('https'),
   request = require('request'),
   fs = require('fs');
-  console-stamp = require('console-stamp')(console, '[HH:MM:ss.l]');
+  consoleStamp = require('console-stamp')(console, '[HH:MM:ss.l]');
 
 
 
