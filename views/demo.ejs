@@ -50,7 +50,7 @@
     });
   };
 
-  function confirmOrder(userRef, orderId) {
+  function processOrder(userRef, orderId) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
@@ -78,11 +78,11 @@
      allow_login="true"
      size="large"></div>
 
-<input type="button" onclick="confirmOrder('<%= userRef %>', '<%= orderId %>')" value="User Confirms Order"/>
+<input type="button" onclick="confirmOrder()" value="User Confirms Order"/>
 
 <input type="text" id="orderId">
 
-<input type="button" onclick="processOrder()" value="E-shop Processes Order"/>
+<input type="button" onclick="processOrder('<%= userRef %>', '<%= orderId %>')" value="E-shop Processes Order"/>
 
 
 </body>
