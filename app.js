@@ -131,8 +131,7 @@ app.get('/', function(req, res) {
  * Endpoint for receiving order confirmation
  */
 app.get('/confirm', function(req, res) {
-  console.log("Received GET to /confirm:");
-  console.log(req);
+  console.log("Received GET to /confirm");
   var userRef = req.query.userRef;
   var orderId = req.query.orderId;
   sendTextMessageToUserRef(userRef, "Dobrý den, potvrzujeme přijetí vaši objednávky č." + orderId);
@@ -244,6 +243,8 @@ function receivedAuthentication(event) {
  *
  */
 function sendTextMessageToUserRef(userRef, messageText) {
+  console.log("sending message to userRef: " + userRef);
+  console.log("message text: " + messageText);
   var messageData = {
     recipient: {
       user_ref: userRef
