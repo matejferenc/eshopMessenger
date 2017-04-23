@@ -10,7 +10,15 @@ const
   https = require('https'),
   request = require('request'),
   fs = require('fs'),
-  consoleStamp = require('console-stamp')(console, '[HH:MM:ss.l]');
+  consoleStamp = require('console-stamp')(console, {
+                                                       pattern: 'ddd mmm dd yyyy HH:MM:ss.l',
+                                                       metadata: '[' + process.pid + ']',
+                                                       colors: {
+                                                           stamp: "yellow",
+                                                           label: "white",
+                                                           metadata: "green"
+                                                       }
+                                                   });
 
 
 
@@ -232,7 +240,7 @@ function receivedAuthentication(event) {
   // plugin.
   var passThroughParam = event.optin.ref;
 
-  console.log("Received authentication for user %d and page %d with pass " +
+  console.log("Received authentication for user %s and page %d with pass " +
     "through param '%s' at %d", userRef, recipientID, passThroughParam,
     timeOfAuth);
 
