@@ -25,3 +25,12 @@
         5. Click "Extend Access Token"
     2.
 
+6. Add Checkbox Plugin to page
+    1. URL of page must be whitelisted with Facebook app:
+        POST https://graph.facebook.com/v2.9/me/messenger_profile?access_token=<TOKEN>
+        {
+          "whitelisted_domains":[
+            "https://goodreservation.com:6443"
+          ]
+        }
+        GET https://graph.facebook.com/v2.9/me/messenger_profile?fields=whitelisted_domains&access_token=<TOKEN>

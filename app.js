@@ -95,8 +95,10 @@ app.post('/webhook', function (req, res) {
           receivedDeliveryConfirmation(messagingEvent);
         } else if (messagingEvent.read) {
           receivedMessageRead(messagingEvent);
+        } else if (messagingEvent.message) {
+          receivedMessage(messagingEvent);
         } else {
-          console.log("Webhook received unknown messagingEvent: ", messagingEvent);
+          console.error("Webhook received unknown messagingEvent: ", messagingEvent);
         }
       });
     });
@@ -131,6 +133,63 @@ app.get('/authorize', function(req, res) {
     redirectURISuccess: redirectURISuccess
   });
 });
+
+/*
+ * Homepage will show Demo of Facebook messenger Checkbox plugin
+ */
+app.get('/', function(req, res) {
+  // userRef has to be unique for every request. If not unique, Facebook Checkbox plugin will not work properly
+  var userRef = Math.random().toString(36).substr(2, 5);
+
+  // Redirect users to this URI on successful login
+  var redirectURISuccess = redirectURI + "&authorization_code=" + authCode;
+
+  res.render('demo', {
+    userRef: userRef
+  });
+});
+
+
+/*
+ * Message Event
+ *
+ * This event is called when a message is sent to your page. The 'message'
+ * object format can vary depending on the kind of message that was received.
+ * Read more at https://developers.facebook.com/docs/messenger-platform/webhook-reference/message-received
+ *
+ * For this example, we're going to echo any text that we get. If we get some
+ * special keywords ('button', 'generic', 'receipt'), then we'll send back
+ * examples of those bubbles to illustrate the special message bubbles we've
+ * created. If we receive a message with an attachment (image, video, audio),
+ * then we'll simply confirm that we've received the attachment.
+ *
+ */
+function receivedMessage(event) {
+  var senderID = event.sender.id;
+  var recipientID = event.recipient.id;
+  var timeOfMessage = event.timestamp;
+  var message = event.message;
+
+  console.log("Received message for user %d and page %d at %d with message:", senderID, recipientID, timeOfMessage);
+  console.log(JSON.stringify(message));
+
+  var isEcho = message.is_echo;
+  var messageId = message.mid;
+  var appId = message.app_id;
+  var metadata = message.metadata;
+
+  // You may get a text or attachment but not both
+  var messageText = message.text;
+  var messageAttachments = message.attachments;
+  var quickReply = message.quick_reply;
+
+  if (isEcho) {
+    // Just logging message echoes to console
+    console.log("Received echo for message %s and app %d with metadata %s", messageId, appId, metadata);
+    return;
+  }
+  console.error("Unknown message received: ", messagingEvent);
+}
 
 /*
  * Verify that the callback came from Facebook. Using the App Secret from 

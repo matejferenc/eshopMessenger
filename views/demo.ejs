@@ -6,8 +6,6 @@
 
 <body>
 <script>
-  var userRef = "";
-
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '826661794148248',
@@ -43,12 +41,12 @@
     }(document, 'script', 'facebook-jssdk')
   );
 
-  function confirmOptIn() {
+  function confirmOrder() {
     FB.AppEvents.logEvent('MessengerCheckboxUserConfirmation', null, {
       'app_id': '826661794148248',
       'page_id': '1889282338015127',
       'ref': 'PASS_THROUGH_PARAM 1',
-      'user_ref': '10000000008'
+      'user_ref': '<%= userRef %>'
     });
   };
 
@@ -58,15 +56,15 @@
 
 <div class="fb-messenger-checkbox"
 
-     origin="http://localhost:63342"
+     origin="https://goodreservation.com:6443"
      page_id="1889282338015127"
      messenger_app_id="826661794148248"
-     user_ref="10000000008"
+     user_ref="<%= userRef %>"
      prechecked="true"
      allow_login="true"
      size="large"></div>
 
-<input type="button" onclick="confirmOptIn()" value="Confirm Order"/>
+<input type="button" onclick="confirmOrder()" value="Confirm Order"/>
 
 </body>
 
