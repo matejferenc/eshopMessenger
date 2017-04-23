@@ -76,6 +76,26 @@
     });
   };
 
+  function sendDeliveryInfo(userRef, orderId) {
+      $.ajax({
+        url: '/deliveryInfo',
+        type: 'get',
+        data: {
+          userRef: userRef,
+          orderId: orderId,
+          date: $("#datetimepicker1").data("datetimepicker").getDate();
+        },
+        success: function(response) {
+          console.log("Messenger received delivery information: " + response);
+          $('#sendDeliveryInfoButton').prop('value', "Informace o času doručení byla odeslána přes Messenger");
+          $('#sendDeliveryInfoButton').removeClass('btn-primary').addClass('btn-success');
+        },
+        error: function(xhr) {
+          console.log("Error while sending GET /deliveryInfo");
+        }
+      });
+    };
+
 </script>
 
 <h1>Facebook Messenger Checkbox Plugin Demo</h1>
@@ -83,9 +103,7 @@
 <div class="container-fluid panel panel-default">
 <h2>Objednávkový formulář</h2>
 <p>Bude obsahovat data relevantní k objednávce a messenger checkbox:</p>
-
 <h3>Objednávka č. <%= orderId %></h3>
-
 <div class="fb-messenger-checkbox"
      origin="https://goodreservation.com:6443"
      page_id="1889282338015127"
@@ -94,18 +112,33 @@
      prechecked="true"
      allow_login="true"
      size="large"></div>
-
 <br/>
-<input type='button' id='confirmOrderButton' class='btn btn-primary' onclick='confirmOrder()' value='Potvrdit objednávku'/>
-<br/>
+<input type='button' id='confirmOrderButton' class='btn btn-primary' onclick='confirmOrder()' value='Odeslat objednávku'/>
 </div>
 
 <div class='container-fluid panel panel-default'>
 <h2>Zpracování objednávky v aplikaci</h2>
 <p>Až systém zpracuje objednávku, odešle zprávu s potvrzením objednávky do Messenger systému</p>
-
 <input type='button' id='processOrderButton' class='btn btn-primary' onclick="processOrder('<%= userRef %>', '<%= orderId %>')" value="Zpracovat objednávku a potvrdit přes Messenger"/>
-<br/>
+</div>
+
+<div class='container-fluid panel panel-default'>
+<h2>Odbavení objednávky</h2>
+<p>Až bude objednávka odbavena, odešle systém zprávu o času doručení nebo vyzvednutí do Messenger systému</p>
+<div class="form-group">
+    <div class='input-group date' id='datetimepicker1'>
+        <input type='text' class="form-control"/>
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({locale: 'cs'});
+    });
+</script>
+<input type='button' id='sendDeliveryInfoButton' class='btn btn-primary' onclick="sendDeliveryInfo('<%= userRef %>', '<%= orderId %>')" value="Odeslat zprávu o času doručení nebo vyzvednutí přes Messenger"/>
 </div>
 
 </body>

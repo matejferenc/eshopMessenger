@@ -149,6 +149,18 @@ app.get('/confirm', function(req, res) {
 
 
 /*
+ * Endpoint for receiving delivert information
+ */
+app.get('/deliveryInfo', function(req, res) {
+  console.log("Received GET to /deliveryInfo");
+  var userRef = req.query.userRef;
+  var orderId = req.query.orderId;
+  var date = req.query.date;
+  sendTextMessageToUserRef(userRef, "Dobrý den, vaše objednávka č." + orderId + " bude doručena " + date);
+  res.sendStatus(200);
+});
+
+/*
  * Message Event
  *
  * This event is called when a message is sent to your page. The 'message'
