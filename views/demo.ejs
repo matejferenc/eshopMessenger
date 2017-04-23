@@ -52,22 +52,26 @@
       'ref': 'PASS_THROUGH_PARAM 1',
       'user_ref': '<%= userRef %>'
     });
+    $("#confirmOrderMessage").html("Objednávka byla úspěšně odeslána");
+    $("#confirmOrderButton").prop('disabled', true);
   };
 
   function processOrder(userRef, orderId) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            messengerReceivedOrderConfirmation(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", "https://goodreservation.com:6443/confirm?userRef=" + userRef + "&orderId=" + orderId, true); // true for asynchronous
-    xmlHttp.send(null);
+    $.ajax({
+      url: "/confirm",
+      type: "get",
+      data: {
+        userRef: userRef,
+        orderId: orderId
+      },
+      success: function(response) {
+        console.log("Messenger received order confirmation: " + response);
+      },
+      error: function(xhr) {
+        console.log("Error while sending GET /confirm");
+      }
+    });
   };
-
-  function messengerReceivedOrderConfirmation(responseText) {
-    console.log("Messenger received order confirmation: " + responseText);
-  }
-
 
 </script>
 
@@ -89,7 +93,9 @@
      size="large"></div>
 
 <br/>
-<input type="button" class="btn btn-default" onclick="confirmOrder()" value="Potvrdit objednávku"/>
+<input type="button" id="confirmOrderButton" class="btn btn-default" onclick="confirmOrder()" value="Potvrdit objednávku"/>
+<p id="confirmOrderMessage"></p>
+<br/>
 </div>
 
 <div class="container-fluid panel panel-default">
@@ -97,6 +103,7 @@
 <p>Až systém zpracuje objednávku, odešle zprávu s potvrzením objednávky do Messenger systému</p>
 
 <input type="button" class="btn btn-default" onclick="processOrder('<%= userRef %>', '<%= orderId %>')" value="Zpracovat objednávku a potvrdit přes Messenger"/>
+<br/>
 </div>
 
 </body>
