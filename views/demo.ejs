@@ -56,7 +56,7 @@
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             messengerReceivedOrderConfirmation(xmlHttp.responseText);
     }
-    xmlHttp.open("GET", "https://goodreservation:6443/confirm?userRef=" + userRef + "&orderId=" + orderId, true); // true for asynchronous
+    xmlHttp.open("GET", "https://goodreservation.com:6443/confirm?userRef=" + userRef + "&orderId=" + orderId, true); // true for asynchronous
     xmlHttp.send(null);
   };
 
