@@ -82,8 +82,7 @@
         type: 'get',
         data: {
           userRef: userRef,
-          orderId: orderId,
-          date: $("#datetimepicker1").data("datetimepicker").getDate()
+          orderId: orderId
         },
         success: function(response) {
           console.log("Messenger received delivery information: " + response);
@@ -135,7 +134,7 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        $('#datetimepicker1').datetimepicker({locale: 'cs'});
+        //$('#datetimepicker1').datetimepicker({locale: 'cs'});
     });
 </script>
 <input type='button' id='sendDeliveryInfoButton' class='btn btn-primary' onclick="sendDeliveryInfo('<%= userRef %>', '<%= orderId %>')" value="Odeslat zprávu o času doručení nebo vyzvednutí přes Messenger"/>
